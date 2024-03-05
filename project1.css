@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+figure img {
+    width: 250px;
+    height: auto;
+}
+
+#logo img{
+    width: 100px;
+    border-radius: 25px;
+    margin: 10px;
+}
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-image: url("air.png");
+    background-size: cover;
+}
+
+.navigointi{
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+}
+
+.navigointi li{
+    list-style: none;
+}
+
+.navigointi a{
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    text-shadow: 2px 1px 2px black;
+}
+
+.navlink:hover{
+    color: lightskyblue;
+}
+
+
+aside{
+    width: 100%;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    background-color: navy;
+    color: white;
+}
+
+footer ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 15px;
+}
+
+footer ul li {
+    font-size: smaller;
+    padding: 10px;
+}
+
+@media only screen and (min-width: 600px) {
+	#page-container {display: flex; flex-wrap: wrap;}
+	main {width: 80%;}
+	aside {width: 20%; background-color: rgb(167, 193, 245);}
+}
