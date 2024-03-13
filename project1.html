@@ -26,13 +26,13 @@
             <h1>Liikuntakertojen seuraaminen</h1>
         </header>
 
-        <aricle>
-            <p>Jotain yleistä tekstiä. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus delectus ex tenetur doloremque repellat, facilis repudiandae beatae quibusdam. Eius, sapiente facere voluptatibus at autem accusantium. Rem voluptatem rerum sed illo.</p>
-        </aricle>
-
         <article>
-            <h2>Harjoitustietokanta</h2>
-            <figure><img src="running.png" alt="running woman"></figure>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus delectus ex tenetur doloremque repellat, facilis repudiandae beatae quibusdam. Eius, sapiente facere voluptatibus at autem accusantium. Rem voluptatem rerum sed illo.</p>
+        </article>
+
+        <article id="user">
+            <figure><img src="swimmingpool.png" alt="swimmingpool"></figure>
+            <h2>Käyttäjä</h2>
             <form id="personalInfo">
                 <label for="fname">Etunimi:</label><br>
                 <input type="text" id="fname" name="fname"><br>
@@ -47,19 +47,22 @@
             </form>
         </article>
 
-        <article>
+        <article id="style">
             <h2>Valitse teema:</h2>
             <form id="selection">
-                <input type="radio" id="energinen" name="energinen">
-                <label for="energinen">Energinen</label>
+                <input type="radio" id="uinti" name="uinti">
+                <label for="uinti">Rauhoittava</label>
 
                 <input type="radio" id="iloinen" name="iloinen">
                 <label for="iloinen">Iloinen</label>
 
-                <input type="radio" id="rauhallinen" name="rauhallinen">
-                <label for="rauhallinen">Rauhallinen</label>
+                <input type="radio" id="voima" name="voima">
+                <label for="voima">Voimakas</label>
             </form>
 
+        </article>
+
+        <article id="table">
         <table>
             <tr>
                 <th>Päivämäärä</th>
@@ -75,19 +78,21 @@
     </main>
 
     <aside>
-        <h2>Yhteenveto Liikuntaharjoituksista</h2>
+        <div>
+        <h3>Yhteenveto</h3>
         <p>Harjoitusten määrä: </p>
         <p>Harjoitusten kesto yhteensä: </p>
         <p>Keskimääräinen harjoituksen kesto: </p>
+        </div>
     </aside>
 
     </div>
 
     <footer>
         <ul>
-            <li>Tekijätiedot</li>
-            <li>Yhteystiedot</li>
-            <li>Kuvat: By Midjourney</li>
+            <li>Tekijätiedot: <p>Veera K</p></li>
+            <li>Yhteystiedot: <p>N/A</p></li>
+            <li>Kuvat: <p>By Midjourney</p></li>
         </ul>
     </footer>
 

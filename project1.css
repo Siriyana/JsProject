@@ -43,16 +43,70 @@ nav{
     color: lightskyblue;
 }
 
+main {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px 0px;
+}
 
-aside{
-    width: 100%;
+h1 {
+    border: 3px groove aquamarine;
+    padding: 10px 35px;
+    border-radius: 10px;
+}
+
+article {
+    width: 70%;
+    padding: 10px;
+    align-items: center;
+}
+
+table {
+    border: 2px double black;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+tbody {
+    margin: 5px;
+    padding: 5px;
+    display: block;
+}
+
+tr, td, th {
+    border: 1px solid gray;
+    width: 50%;
+    border-collapse: collapse;
+    padding: 10px;
+    display: table-cell;
+}
+
+
+aside {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background: linear-gradient(rgb(48, 104, 129), rgb(82, 142, 159), rgb(48, 104, 129));
+    color: white;
+}
+
+aside div {
+    max-width: 100%;
+}
+
+aside h3, aside p {
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
 }
 
 footer{
     display: flex;
-    justify-content: center;
-    background-color: navy;
+    background: linear-gradient(rgb(48, 104, 129), rgb(82, 142, 159));
     color: white;
+    justify-content: center;
 }
 
 footer ul {
@@ -60,17 +114,25 @@ footer ul {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-around;
     margin: 15px;
 }
 
 footer ul li {
     font-size: smaller;
-    padding: 10px;
+    padding: 5px;
+    margin: 0px 10px;
 }
 
 @media only screen and (min-width: 600px) {
-	#page-container {display: flex; flex-wrap: wrap;}
-	main {width: 80%;}
-	aside {width: 20%; background-color: rgb(167, 193, 245);}
+    #page-container {
+        display: flex; flex-wrap: wrap;
+    }
+
+    main {
+        width: 80%;
+    }
+    aside {
+        width: 20%; 
+        background-color: rgb(167, 193, 245);
+    }
 }
