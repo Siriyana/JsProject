@@ -48,11 +48,15 @@ main {
     flex-wrap: nowrap;
     flex-direction: column;
     align-items: center;
-    margin: 25px 0px;
+    padding: 25px 0px;
+    background-color: rgba(0, 255, 255, 0.226);
 }
 
 h1 {
-    border: 3px groove aquamarine;
+    color: white;
+    text-shadow: 2px 1px 2px black;
+    border: 5px groove rgb(7, 123, 127);
+    background-color: rgb(7, 199, 177);
     padding: 10px 35px;
     border-radius: 10px;
 }
@@ -63,10 +67,28 @@ article {
     align-items: center;
 }
 
+#user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#user h2 {
+    margin: 10px;
+}
+
+#personalInfo {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 table {
     border: 2px double black;
     margin: 10px;
     border-radius: 20px;
+    background-color: aqua;
 }
 
 tbody {
@@ -81,8 +103,21 @@ tr, td, th {
     border-collapse: collapse;
     padding: 10px;
     display: table-cell;
+    background-color: white;
 }
 
+#tiedot * {
+    padding: 2px 10px;
+    text-align:justify;
+}
+
+.palikka label{
+    width: 120px;
+}
+
+.palikka input {
+    width: 100px;
+}
 
 aside {
     display: flex;
@@ -101,6 +136,13 @@ aside h3, aside p {
     box-sizing: border-box;
     padding: 10px;
 }
+
+#yhteenveto {
+    margin: 10px 5px;
+    border: 5px solid white;
+    border-radius: 10px;
+}
+
 
 footer{
     display: flex;

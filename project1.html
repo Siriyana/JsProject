@@ -34,22 +34,23 @@
             <figure><img src="swimmingpool.png" alt="swimmingpool"></figure>
             <h2>Käyttäjä</h2>
             <form id="personalInfo">
-                <label for="fname">Etunimi:</label><br>
-                <input type="text" id="fname" name="fname"><br>
+                <label for="name">Nimi:</label>
+                <input type="text" id="name" name="name"><br>
 
-                <label for="lname">Sukunimi:</label><br>
-                <input type="text" id="lname" name="lname"><br>
+                <label for="sposti">Sähköposti:</label>
+                <input type="text" id="sposti" name="sposti"><br>
 
-                <label for="tavoite">Mikä on tavoitteesi liikuntakerroille per viikko? Anna numero 0-7. </label><br>
+                <label for="tavoite">Mikä on tavoitteesi liikuntakerroille per viikko? Anna numero 0-7. </label>
                 <input type="number" id="tavoite" name="tavoite"><br>
 
-                <input type="submit" value="Submit">
+                <input type="submit" value="Lähetä" onclick="processUser()">
             </form>
+            <div id="Hello"></div>
         </article>
 
         <article id="style">
             <h2>Valitse teema:</h2>
-            <form id="selection">
+            <form id="selection" onselect="changeStyle()">
                 <input type="radio" id="uinti" name="uinti">
                 <label for="uinti">Rauhoittava</label>
 
@@ -72,18 +73,43 @@
             </tr>
         </table>
             
+        <div id="tiedot">
+        <div class="palikka">
+        <label for="date">Päivämäärä:</label>
+        <input type="date" id="date" name="date">
+        </div>
+
+        <div class="palikka">
+        <label for="exercise">Harjoitus:</label>
+        <input type="text" id="exercise" name="exercise">
+        </div>
+
+        <div class="palikka">
+        <label for="duration">Kesto (min):</label>
+        <input type="number" id="duration" name="duration">
+        </div>
+
+        <div class="palikka">
+        <label for="feeling">Fiilis:</label>
+        <input type="text" id="feeling" name="feeling">
+        </div>
+        <input type="submit" value="Lähetä" onclick="saveData()">
+
+    </div>
         </article>
 
 
     </main>
 
     <aside>
-        <div>
+        <div id="yhteenveto">
         <h3>Yhteenveto</h3>
         <p>Harjoitusten määrä: </p>
         <p>Harjoitusten kesto yhteensä: </p>
         <p>Keskimääräinen harjoituksen kesto: </p>
         </div>
+
+        <div id="palaute"></div>
     </aside>
 
     </div>
