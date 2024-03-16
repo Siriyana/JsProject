@@ -110,6 +110,10 @@ tr, td, th {
     background-color: white;
 }
 
+#harjoitukset {
+    display: none;
+}
+
 #harjoitusTiedot {
     display: flex;
     flex-direction: column;
