@@ -31,7 +31,7 @@
         </article>
 
         <article id="user">
-            <figure><img src="swimmingpool.png" alt="swimmingpool"></figure>
+            <figure id="userKuva"><img src="swimmingpool.png" alt="swimmingpool"></figure>
             <h2>Käyttäjä</h2>
             <form id="personalInfo">
                 <label for="name">Nimi:</label>
@@ -43,27 +43,21 @@
                 <label for="tavoite">Mikä on tavoitteesi liikuntakerroille per viikko? Anna numero 0-7. </label>
                 <input type="number" id="tavoite" name="tavoite"><br>
 
-                <input type="submit" value="Lähetä" onclick="processUser()">
-            </form>
-            <div id="Hello"></div>
-        </article>
-
-        <article id="style">
-            <h2>Valitse teema:</h2>
-            <form id="selection" onselect="changeStyle()">
-                <input type="radio" id="uinti" name="uinti">
-                <label for="uinti">Rauhoittava</label>
-
-                <input type="radio" id="iloinen" name="iloinen">
-                <label for="iloinen">Iloinen</label>
-
-                <input type="radio" id="voima" name="voima">
-                <label for="voima">Voimakas</label>
+                <input type="submit" value="Lähetä" id="submitUser">
             </form>
 
         </article>
 
-        <article id="table">
+        <div id="hello">
+            <figure id="helloKuva"><img src="smilingcat.jpg" alt="welcome, hello"></figure>
+            <h2>Tervetuloa!</h2>
+        </div>
+
+        <article>
+
+        </article>
+
+        <h2>Harjoituskertasi:</h2>
         <table>
             <tr>
                 <th>Päivämäärä</th>
@@ -73,35 +67,57 @@
             </tr>
         </table>
             
-        <div id="tiedot">
+        <form id="harjoitusTiedot">
+        <h3>Lisää harjoituksia:</h3>
         <div class="palikka">
         <label for="date">Päivämäärä:</label>
-        <input type="date" id="date" name="date">
+        <input type="date" id="pvm" name="pvm">
         </div>
 
         <div class="palikka">
         <label for="exercise">Harjoitus:</label>
-        <input type="text" id="exercise" name="exercise">
+        <input type="text" id="harjoitus" name="harjoitus">
         </div>
 
         <div class="palikka">
         <label for="duration">Kesto (min):</label>
-        <input type="number" id="duration" name="duration">
+        <input type="number" id="kesto" name="kesto">
         </div>
 
         <div class="palikka">
         <label for="feeling">Fiilis:</label>
-        <input type="text" id="feeling" name="feeling">
+        <input type="text" id="fiilis" name="fiilis">
         </div>
-        <input type="submit" value="Lähetä" onclick="saveData()">
+        <button type="submit" id="submitHarjoitus">Lähetä</button>
 
-    </div>
-        </article>
+        </form>
 
 
+
+        <script src="project1.js"></script>
     </main>
 
     <aside>
+        <div id="style">
+            <h3>Valitse teema:</h3>
+            <form id="selection">
+                <div class="tyyli">
+                <input type="radio" id="rauha" name="rauha">
+                <label for="rauha">Rauhoittava</label>
+                </div>
+
+                <div class="tyyli">
+                <input type="radio" id="iloinen" name="iloinen">
+                <label for="iloinen">Iloinen</label>
+                </div>
+
+                <div class="tyyli">
+                <input type="radio" id="voima" name="voima">
+                <label for="voima">Voimakas</label>
+                </div>
+            </form>
+        </div>
+
         <div id="yhteenveto">
         <h3>Yhteenveto</h3>
         <p>Harjoitusten määrä: </p>
@@ -110,6 +126,7 @@
         </div>
 
         <div id="palaute"></div>
+
     </aside>
 
     </div>
