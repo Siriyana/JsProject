@@ -58,7 +58,7 @@ main {
 h1 {
     color: white;
     text-shadow: 2px 1px 2px black;
-    border: 5px groove rgb(7, 123, 127);
+    border: 5px groove darkgray;
     background-color: rgb(7, 199, 177);
     padding: 10px 35px;
     border-radius: 10px;
@@ -95,7 +95,7 @@ table {
     border: 2px double black;
     margin: 10px;
     border-radius: 20px;
-    background-color: aqua;
+    background-color: silver;
 }
 
 tbody {
@@ -105,7 +105,7 @@ tbody {
 }
 
 tr, td, th {
-    border: 1px solid gray;
+    border: 1px solid rgb(87, 87, 87);
     width: 50%;
     border-collapse: collapse;
     padding: 10px;

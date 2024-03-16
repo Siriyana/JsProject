@@ -164,6 +164,7 @@ const voima = document.getElementById('voima');
 uinti.checked = true;
 
 //Create dynamic events to theme choices
+uinti.addEventListener('change', changeStyle);
 rauha.addEventListener('change', changeStyle);
 iloinen.addEventListener('change', changeStyle);
 voima.addEventListener('change', changeStyle);
@@ -173,7 +174,7 @@ voima.addEventListener('change', changeStyle);
 //Theme pictures
 var kuvaJoukko = {
     "uinti": "swimmingpool.png",
-    "rauha": "mindfulness with cat.png",
+    "rauha": "mindfulness.png",
     "iloinen": "happyRun.png",
     "voima": "voima.png"
     };
@@ -183,20 +184,42 @@ function kuvanVaihto(kuvaJoukko) {
     kuva.src = kuvaJoukko;
 }
 
-//Change theme function
+//Function to change colors and pictures according the selection
 function changeStyle() {
+    var aside = document.querySelector('aside');
+    var footer = document.querySelector('footer');
+    var h1 = document.querySelector('h1');
+    var navigator = document.querySelector('nav');
+    
+
     if (uinti.checked) {
-        document.main.style.backgroundColor =  'rgba(0, 255, 255, 0.226)';
-        kuvanVaihto(uinti);
+        document.body.style.backgroundColor =  'rgba(0, 255, 255, 0.226)';
+        kuvanVaihto(kuvaJoukko["uinti"]);
+        aside.style.background = 'linear-gradient(rgb(48, 104, 129), rgb(82, 142, 159), rgb(48, 104, 129))';
+        footer.style.background = 'linear-gradient(rgb(48, 104, 129), rgb(82, 142, 159), rgb(48, 104, 129))';
+        h1.style.background = 'rgb(7, 199, 177)';
+        navigator.style.backgroundImage = 'url("air.png")';
     } else if (rauha.checked) {
-        document.body.style.backgroundColor = 'rgba(42, 123, 232, 0.23)';    
-        kuvanVaihto(rauha);
+        document.body.style.backgroundColor = 'rgba(232, 42, 189, 0.23)';    
+        kuvanVaihto(kuvaJoukko["rauha"]);
+        aside.style.background = 'linear-gradient(purple, rgb(232, 42, 189), purple)';
+        footer.style.background = 'linear-gradient(purple, rgb(232, 42, 189), purple)';
+        h1.style.background = 'purple';
+        navigator.style.backgroundImage = 'url("air_purple.jpg")';
     } else if (iloinen.checked) {
         document.body.style.backgroundColor = 'rgba(246, 228, 58, 0.6)';
-        kuvanVaihto(iloinen);
+        kuvanVaihto(kuvaJoukko["iloinen"]);
+        aside.style.background = 'linear-gradient(darkgoldenrod, rgb(246, 228, 58), darkgoldenrod)';
+        footer.style.background = 'linear-gradient(darkgoldenrod, rgb(246, 228, 58), darkgoldenrod)';
+        h1.style.background = 'darkgoldenrod';
+        navigator.style.backgroundImage = 'url("air_yellow.jpg")';
     } else if (voima.checked){
-        document.body.style.backgroundColor = 'rgba(246, 24, 24, 0.4)';
-        kuvanVaihto(voima);
+        document.body.style.backgroundColor = 'rgba(232, 42, 42, 0.65)';
+        kuvanVaihto(kuvaJoukko["voima"]);
+        aside.style.background = 'linear-gradient(darkred, rgba(232, 42, 42, 0.65), darkred)';
+        footer.style.background = 'linear-gradient(darkred, rgba(232, 42, 42, 0.65), darkred)';
+        h1.style.background = 'darkred';
+        navigator.style.backgroundImage = 'url("air_red.jpg")';
     }
 
 }
