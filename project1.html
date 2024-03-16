@@ -31,7 +31,7 @@
         </article>
 
         <article id="user">
-            <figure id="userKuva"><img src="swimmingpool.png" alt="swimmingpool"></figure>
+            <figure><img src="swimmingpool.png" id="teemaKuva"></figure>
             <h2>Käyttäjä</h2>
             <form id="personalInfo">
                 <label for="name">Nimi: <br>
@@ -95,21 +95,29 @@
     </main>
 
     <aside>
+
+
         <div id="style">
             <h3>Valitse teema:</h3>
             <form id="selection">
+
                 <div class="tyyli">
-                <input type="radio" id="rauha" name="rauha">
+                <input type="radio" id="uinti" name="valinta">
+                <label for="uinti">Uinti</label>
+                </div>
+
+                <div class="tyyli">
+                <input type="radio" id="rauha" name="valinta">
                 <label for="rauha">Rauhoittava</label>
                 </div>
 
                 <div class="tyyli">
-                <input type="radio" id="iloinen" name="iloinen">
+                <input type="radio" id="iloinen" name="valinta">
                 <label for="iloinen">Iloinen</label>
                 </div>
 
                 <div class="tyyli">
-                <input type="radio" id="voima" name="voima">
+                <input type="radio" id="voima" name="valinta">
                 <label for="voima">Voimakas</label>
                 </div>
             </form>

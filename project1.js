@@ -153,7 +153,51 @@ deleteHarjoitus.addEventListener('click', deleteData);
 
 
 
-//Changing the theme colors for the page
+//Changing the theme for the page
+//Possible theme choices
+const uinti = document.getElementById('uinti');
+const rauha = document.getElementById('rauha');
+const iloinen = document.getElementById('iloinen');
+const voima = document.getElementById('voima');
+
+//Defaul theme
+uinti.checked = true;
+
+//Create dynamic events to theme choices
+rauha.addEventListener('change', changeStyle);
+iloinen.addEventListener('change', changeStyle);
+voima.addEventListener('change', changeStyle);
+
+
+
+//Theme pictures
+var kuvaJoukko = {
+    "uinti": "swimmingpool.png",
+    "rauha": "mindfulness with cat.png",
+    "iloinen": "happyRun.png",
+    "voima": "voima.png"
+    };
+
+function kuvanVaihto(kuvaJoukko) {
+    var kuva = document.getElementById("teemaKuva");
+    kuva.src = kuvaJoukko;
+}
+
+//Change theme function
 function changeStyle() {
+    if (uinti.checked) {
+        document.main.style.backgroundColor =  'rgba(0, 255, 255, 0.226)';
+        kuvanVaihto(uinti);
+    } else if (rauha.checked) {
+        document.body.style.backgroundColor = 'rgba(42, 123, 232, 0.23)';    
+        kuvanVaihto(rauha);
+    } else if (iloinen.checked) {
+        document.body.style.backgroundColor = 'rgba(246, 228, 58, 0.6)';
+        kuvanVaihto(iloinen);
+    } else if (voima.checked){
+        document.body.style.backgroundColor = 'rgba(246, 24, 24, 0.4)';
+        kuvanVaihto(voima);
+    }
 
 }
+
