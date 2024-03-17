@@ -84,6 +84,8 @@ function processUser(e) {
     //Hide user-element
     var kayttaja = document.getElementById('user');
     kayttaja.style.display = 'none';
+    
+    loadData();
 
     return true;
 }
