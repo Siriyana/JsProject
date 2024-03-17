@@ -94,27 +94,32 @@ article {
 table {
     border: 2px double black;
     margin: 10px;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: silver;
 }
 
 tbody {
     margin: 5px;
     padding: 5px;
-    display: block;
 }
 
 tr, td, th {
     border: 1px solid rgb(87, 87, 87);
+    border-radius: 5px;
     width: 50%;
     border-collapse: collapse;
     padding: 10px;
-    display: table-cell;
+    margin: 5px;
     background-color: white;
 }
 
 #harjoitukset {
     display: none;
+}
+
+#harjoitukset button{
+    margin: 10px;
+    padding: 5px;
 }
 
 #harjoitusTiedot {

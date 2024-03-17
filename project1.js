@@ -5,14 +5,15 @@ if(localStorage.getItem("users")==null){
 }
 
 if(localStorage.getItem("harjoitukset")==null){
-    var harjoitus = [];
-    localStorage.setItem("harjoitukset", JSON.stringify(harjoitus));
+    var harjoitusData = [];
+    localStorage.setItem("harjoitukset", JSON.stringify(harjoitusData));
 }
 
 
 //Element variables, harjoitusTiedot-form and submitHarjoitus-button
 const harjoitusTiedot = document.getElementById('harjoitusTiedot');
 const submitHarjoitus = document.getElementById('submitHarjoitus');
+const updateHarjoitus = document.getElementById('updateHarjoitus');
 const deleteHarjoitus = document.getElementById('deleteHarjoitus');
 
 
@@ -23,9 +24,11 @@ const submitUser = document.getElementById('submitUser');
 
 
 
+//////////////////////////USER INFORMATION/////////////////////
+
+
 function processUser(e) {
     e.preventDefault();
-
     var user = JSON.parse(localStorage.getItem("users")) || [];
 
     
@@ -85,18 +88,70 @@ submitUser.addEventListener('click', processUser);
 
 
 
+////////////////////////////////EXERCISES INFORMATION////////////////
+
 
 //Saving data from harjoitusTiedot-form
 function saveData(e) {
     e.preventDefault();
+    var harjoitusData = JSON.parse(localStorage.getItem("harjoitukset")) || [];
     
     //Variables 
     var pvm = document.getElementById('pvm').value;
-    var harjoitus = document.getElementById('harjoitus').value;
-    var kesto = document.getElementById('kesto').value;
+    var category = document.getElementById('valikko').value;
+    var exercise = document.getElementById('harjoitus').value;
+    var kesto = parseFloat(document.getElementById('kesto').value);
     var fiilis = document.getElementById('fiilis').value;
 
     
+    //Checking if values are properly filled
+    if(pvm == null || pvm == ""){
+        document.getElementById("pvm").style.borderColor = "red";
+        document.getElementById("palaute").style.color = "red";
+        document.getElementById("palaute").innerHTML = "Päivämäärä on pakollinen";
+        return false;
+    } 
+    if(category == null || category == ""){
+        document.getElementById("valikko").style.borderColor = "red";
+        document.getElementById("palaute2").style.color = "red";
+        document.getElementById("palaute2").innerHTML = "Kategoria pitää valita";
+        return false;
+    } 
+    if(exercise == null || exercise == "" || exercise.length > 100){
+        document.getElementById("harjoitus").style.borderColor = "red";
+        document.getElementById("palaute3").style.color = "red";
+        document.getElementById("palaute3").innerHTML = "Harjoitus-kenttä ei voi olla tyhjä ja se ei saa olla yli 100 merkkiä.";
+        return false;
+    } 
+    if(isNaN(kesto) || kesto < 0.1){
+        document.getElementById("kesto").style.borderColor = "red";
+        document.getElementById("palaute4").style.color = "red";
+        document.getElementById("palaute4").innerHTML = "Kesto ei voi olla tyhjä tai negatiivinen";
+        return false;
+    } 
+
+    // Create a new exercise-log
+    var harjoitusInfo = {
+        pvm: pvm,
+        category: category,
+        exercise: exercise,
+        kesto: kesto,
+        fiilis: fiilis,
+    }
+
+    // Save harjoitus to localstorage
+    harjoitusData.push(harjoitusInfo);
+    localStorage.setItem("harjoitukset", JSON.stringify(harjoitusData));
+
+    //If there were mistakes and they were corrected, resetting warnings
+    document.getElementById("pvm").style.borderColor = "";
+    document.getElementById("palaute").innerHTML = "";
+    document.getElementById("valikko").style.borderColor = "";
+    document.getElementById("palaute2").innerHTML = "";
+    document.getElementById("harjoitus").style.borderColor = "";
+    document.getElementById("palaute3").innerHTML = "";
+    document.getElementById("kesto").style.borderColor = "";
+    document.getElementById("palaute4").innerHTML = "";
 
     loadData();
 
@@ -112,23 +167,21 @@ function loadData() {
 
     if (jsonHarjoitukset && jsonHarjoitukset.length > 0) {
         // Näytä taulukon otsikot
-        var table = "<table border='1'><tr><th>Nro</th><th>Päivämäärä</th><th>Harjoitus</th><th>Kesto</th><th>Fiilis</th></tr>";
+        var table = "<table border='1'><tr><th>Nro</th><th>Päivämäärä</th><th>Kategoria</th><th>Harjoitus</th><th>Kesto (h)</th><th>Fiilis</th></tr>";
 
         //Adding new row and values to table
         for (var i = 0; i < jsonHarjoitukset.length; i++) {
             table += "<tr><td>" + (i + 1) + "</td><td>" 
             + jsonHarjoitukset[i].pvm + "</td><td>" 
-            + jsonHarjoitukset[i].harjoitus + "</td><td>"
+            + jsonHarjoitukset[i].category + "</td><td>"
+            + jsonHarjoitukset[i].exercise + "</td><td>"
             + jsonHarjoitukset[i].kesto + "</td><td>"
-            + jsonHarjoitukset[i].fiilis + "</td><td>";
+            + jsonHarjoitukset[i].fiilis + "</td>";
         }
 
         table += "</table>";
         place.innerHTML = table;
-    } else {
-        // Piilota taulukko
-        place.innerHTML = "";
-    }
+    } 
 }
 
 
@@ -137,20 +190,29 @@ submitHarjoitus.addEventListener('click', saveData);
 
 
 
+/////////////////////////////UPDATE&DELETE DATA FROM TABLE/////////
 
+//Update exercise information
+function updateData(){
 
+}
 
+//Create dynamic evetnt to updateHarjoitus
+updateHarjoitus.addEventListener('click', updateData);
 
+//Delete exercise-row
 function deleteData() {
 
 }
 
-
 //Create dynamic evetnt to deleteHarjoitus
-deleteHarjoitus.addEventListener('click', deleteData);
+//deleteHarjoitus.addEventListener('click', deleteData);
 
 
 
+
+
+///////////////////////CHANGING THE STYLES///////////////////////
 
 
 //Changing the theme for the page

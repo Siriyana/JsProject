@@ -30,6 +30,8 @@
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus delectus ex tenetur doloremque repellat, facilis repudiandae beatae quibusdam. Eius, sapiente facere voluptatibus at autem accusantium. Rem voluptatem rerum sed illo.</p>
         </article>
 
+        <!--USER INFORMATION-->
+
         <article id="user">
             <figure><img src="swimmingpool.png" id="teemaKuva"></figure>
             <h2>Käyttäjä</h2>
@@ -58,45 +60,68 @@
 
         </article>
 
+        <!--EXERCISE INFORMATION-->
+
         <div id="harjoitukset">
         <h2>Harjoituskertasi:</h2>
 
+        
         <div id="harjoitusTaulu"></div>
             
         <form id="harjoitusTiedot">
         <h3>Lisää harjoituksia:</h3>
+
         <div class="palikka">
         <label for="date">Päivämäärä:</label>
-        <input type="date" id="pvm" name="pvm">
+        <input type="date" id="pvm" name="pvm">                
+        <span id="palaute"></span>
+        </div>
+
+
+        <div class="palikka">
+            <label for="category">Harjoituskategoria:</label>
+            <select id="valikko" name="valikko" size="1">
+                <option value="peruskunto">Peruskestävyys</option>
+                <option value="cardio">Kardioliikunta</option>
+                <option value="strength">Lihaskunto</option>
+                <option value="kehohuolto">Kehonhuolto</option>
+                <option value="muu">Muu</option>           
+            </select>
+            <span id="palaute2"></span>
         </div>
 
         <div class="palikka">
-        <label for="exercise">Harjoitus:</label>
-        <input type="text" id="harjoitus" name="harjoitus">
+            <label for="exercise">Harjoitus:</label>
+            <input type="text" id="harjoitus" name="harjoitus">
+            <span id="palaute3"></span>
+            </div>
+
+        <div class="palikka">
+        <label for="duration">Kesto (tunteina):</label>
+        <input type="number" id="kesto" name="kesto" min="0,1">
+        <span id="palaute4"></span>
         </div>
 
         <div class="palikka">
-        <label for="duration">Kesto (min):</label>
-        <input type="number" id="kesto" name="kesto">
-        </div>
-
-        <div class="palikka">
-        <label for="feeling">Fiilis:</label>
+        <label for="feeling">Fiilis (valinnainen):</label>
         <input type="text" id="fiilis" name="fiilis">
+
         </div>
+
+        <br>
         <button type="submit" id="submitHarjoitus">Lähetä</button>
+        <button type="submit" id="updateHarjoitus">Päivitä</button>
         <button type="submit" id="deleteHarjoitus">Poista</button>
 
         </form>
         </div>
 
 
-
     </main>
 
     <aside>
 
-
+        <!--STYLE INFORMATION-->
         <div id="style">
             <h3>Valitse teema:</h3>
             <form id="selection">
@@ -122,6 +147,9 @@
                 </div>
             </form>
         </div>
+
+
+        <!--SUMMARY ABOUT EXERCISES-->
 
         <div id="yhteenveto">
         <h3>Yhteenveto</h3>
