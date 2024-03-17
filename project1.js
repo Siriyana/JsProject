@@ -355,11 +355,11 @@ function informationSummary() {
     //exercise count by categories
     //obejct to save exercise by category
     var maaraKategorioittain = {
-        peruskunto: 0,
-        cardio: 0,
-        strength: 0,
-        kehohuolto: 0,
-        muu: 0
+        Peruskestavyys: 0,
+        Kardioliikunta: 0,
+        Lihaskunto: 0,
+        Kehonhuolto: 0,
+        Muu: 0
     }
 
     //Go through all rows one by one
