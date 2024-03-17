@@ -113,12 +113,27 @@ tr, td, th {
     background-color: white;
 }
 
+tr{
+    transition: all .25 ease-in-out;
+}
+
+tr:hover{
+    background-color: #EEE;
+    cursor: pointer;
+}
+
 #harjoitukset {
     display: none;
 }
 
-#harjoitukset button{
-    margin: 10px;
+#buttons {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    margin: 5px;
+}
+#buttons button {
+    margin: 5px;
     padding: 5px;
 }
 

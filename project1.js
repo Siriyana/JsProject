@@ -157,7 +157,10 @@ function saveData(e) {
 
 }
 
+
 //Getting harjoitusTiedot to the table on website
+var table;
+
 function loadData() {
     var allHarjoitukset = localStorage.getItem("harjoitukset");
     var jsonHarjoitukset = JSON.parse(allHarjoitukset);
@@ -167,11 +170,11 @@ function loadData() {
 
     if (jsonHarjoitukset && jsonHarjoitukset.length > 0) {
         // Näytä taulukon otsikot
-        var table = "<table border='1'><tr><th>Nro</th><th>Päivämäärä</th><th>Kategoria</th><th>Harjoitus</th><th>Kesto (h)</th><th>Fiilis</th></tr>";
+        var tableHTML = "<table border='1'><tr><th>Nro</th><th>Päivämäärä</th><th>Kategoria</th><th>Harjoitus</th><th>Kesto (h)</th><th>Fiilis</th></tr>";
 
         //Adding new row and values to table
         for (var i = 0; i < jsonHarjoitukset.length; i++) {
-            table += "<tr><td>" + (i + 1) + "</td><td>" 
+            tableHTML += "<tr><td>" + (i + 1) + "</td><td>" 
             + jsonHarjoitukset[i].pvm + "</td><td>" 
             + jsonHarjoitukset[i].category + "</td><td>"
             + jsonHarjoitukset[i].exercise + "</td><td>"
@@ -179,9 +182,18 @@ function loadData() {
             + jsonHarjoitukset[i].fiilis + "</td>";
         }
 
-        table += "</table>";
-        place.innerHTML = table;
-    } 
+        tableHTML += "</table>";
+        place.innerHTML = tableHTML;
+
+    
+        //Select rows in table for updating and deleting
+        selectRow();
+
+
+    } else {
+        // Piilota taulukko
+        place.innerHTML = "";
+    }
 }
 
 
@@ -190,20 +202,69 @@ submitHarjoitus.addEventListener('click', saveData);
 
 
 
+
 /////////////////////////////UPDATE&DELETE DATA FROM TABLE/////////
+
+//Select row to be updated or deleted
+function selectRow() {
+
+    var place = document.getElementById("harjoitusTaulu");
+    var tableRows = place.getElementsByTagName('tr');
+
+    for(var i = 1; i < tableRows.length; i++)
+    {
+        tableRows[i].onclick = function(){
+            // get the selected row 
+            rIndex = this.rowIndex;
+            console.log(rIndex);
+
+            
+            document.getElementById('pvm').value = this.cells[1].innerHTML;;
+            document.getElementById('valikko').value = this.cells[2].innerHTML;;
+            document.getElementById('harjoitus').value = this.cells[3].innerHTML;;
+            document.getElementById('kesto').value = this.cells[4].innerHTML;;
+            document.getElementById('fiilis').value = this.cells[5].innerHTML;;
+        };
+    }
+}
+
 
 //Update exercise information
 function updateData(){
+    var pvm = document.getElementById('pvm').value;
+    var category = document.getElementById('valikko').value;
+    var exercise = document.getElementById('harjoitus').value;
+    var kesto = parseFloat(document.getElementById('kesto').value);
+    var fiilis = document.getElementById('fiilis').value;
 
+    var place = document.getElementById("harjoitusTaulu");
+    var tableRows = place.getElementsByTagName('tr');
+
+    //Get the values of the selected rows
+    for (var i = 1; i < tableRows.length; i++) {
+        var cells = tableRows[i].getElementsByTagName('td');
+
+        if (i === rIndex) {
+            cells[1].innerHTML = pvm;
+            cells[2].innerHTML = category;
+            cells[3].innerHTML = exercise;
+            cells[4].innerHTML = kesto;
+            cells[5].innerHTML = fiilis;
+
+            //Save updated data
+            saveData();
+            break; 
+        }
+    }
 }
 
 //Create dynamic evetnt to updateHarjoitus
 updateHarjoitus.addEventListener('click', updateData);
 
 //Delete exercise-row
-function deleteData() {
+//function deleteData() {
 
-}
+//}
 
 //Create dynamic evetnt to deleteHarjoitus
 //deleteHarjoitus.addEventListener('click', deleteData);
