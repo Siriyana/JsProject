@@ -65,6 +65,8 @@ h1 {
 }
 
 article {
+    display: flex;
+    flex-direction: column;
     width: 70%;
     padding: 10px;
     align-items: center;
@@ -174,6 +176,7 @@ aside h3, aside p {
 #yhteenveto {
     display: none;
     margin: 10px 5px;
+    padding: 7px;
     border: 5px solid white;
     border-radius: 10px;
 }

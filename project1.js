@@ -62,13 +62,16 @@ function processUser(e) {
     localStorage.setItem("users", JSON.stringify(user));
 
 
-   //Make the hidden element visible and greet user
+   //Make the hidden elements (greeting and exercise-form) visible 
     var hello = document.getElementById('hello');
     var harjoitukset = document.getElementById('harjoitukset');
 
+
     harjoitukset.style.display = 'block';
     hello.style.display = 'block';
-    hello.innerHTML = '<figure><img src="smilingcat.jpg" alt="welcome, hello"></figure><br><h2>Tervetuloa, ' + name + '!</h2>';
+    hello.innerHTML = '<h2>Tervetuloa, ' + name + '!</h2><figure><img src="smilingcat.jpg" alt="welcome, hello"></figure>';
+
+
 
     //If there was corrections on form, change the red borders and text back to normal
     document.getElementById("feedback").innerHTML = "";
@@ -78,6 +81,9 @@ function processUser(e) {
     document.getElementById("feedback").style.color = "";
     document.getElementById("feedback2").style.color = "";
 
+    //Hide user-element
+    var kayttaja = document.getElementById('user');
+    kayttaja.style.display = 'none';
 
     return true;
 }
@@ -159,9 +165,10 @@ function saveData(e) {
 
 
 //Getting harjoitusTiedot to the table on website
-var table;
+var table; //Global to be used in several functions
 
 function loadData() {
+    //get data from local storage
     var allHarjoitukset = localStorage.getItem("harjoitukset");
     var jsonHarjoitukset = JSON.parse(allHarjoitukset);
 
@@ -169,29 +176,35 @@ function loadData() {
     var place = document.getElementById("harjoitusTaulu");
 
     if (jsonHarjoitukset && jsonHarjoitukset.length > 0) {
-        // Näytä taulukon otsikot
-        var tableHTML = "<table border='1'><tr><th>Nro</th><th>Päivämäärä</th><th>Kategoria</th><th>Harjoitus</th><th>Kesto (h)</th><th>Fiilis</th></tr>";
+        // The headings for table
+        var tableHTML = "<table border='1'><tr><th>Päivämäärä</th><th>Kategoria</th><th>Harjoitus</th><th>Kesto (h)</th><th>Fiilis</th></tr>";
 
         //Adding new row and values to table
         for (var i = 0; i < jsonHarjoitukset.length; i++) {
-            tableHTML += "<tr><td>" + (i + 1) + "</td><td>" 
-            + jsonHarjoitukset[i].pvm + "</td><td>" 
-            + jsonHarjoitukset[i].category + "</td><td>"
-            + jsonHarjoitukset[i].exercise + "</td><td>"
-            + jsonHarjoitukset[i].kesto + "</td><td>"
-            + jsonHarjoitukset[i].fiilis + "</td>";
+            tableHTML += 
+            "<tr><td>" + jsonHarjoitukset[i].pvm + 
+            "</td><td>" + jsonHarjoitukset[i].category + 
+            "</td><td>" + jsonHarjoitukset[i].exercise + 
+            "</td><td>" + jsonHarjoitukset[i].kesto + 
+            "</td><td>" + jsonHarjoitukset[i].fiilis + "</td>";
         }
 
         tableHTML += "</table>";
         place.innerHTML = tableHTML;
 
-    
+        //Make summary-element visible
+        var yhteenveto = document.getElementById('yhteenveto');
+        yhteenveto.style.display = 'block';
+
+        //Count the exercise summary
+        informationSummary()
+
         //Select rows in table for updating and deleting
         selectRow();
 
 
     } else {
-        // Piilota taulukko
+        // Hide if no data in local storage
         place.innerHTML = "";
     }
 }
@@ -206,12 +219,12 @@ submitHarjoitus.addEventListener('click', saveData);
 /////////////////////////////UPDATE&DELETE DATA FROM TABLE/////////
 
 //Select row to be updated or deleted
-
-var rIndex;
+var rIndex; //global to be used in several function
 
 function selectRow() {
 
-    var place = document.getElementById("harjoitusTaulu");
+    //variables
+    var place = document.getElementById("harjoitusTaulu"); 
     var tableRows = place.getElementsByTagName('tr');
 
     for(var i = 1; i < tableRows.length; i++)
@@ -220,12 +233,12 @@ function selectRow() {
             // get the selected row 
             rIndex = this.rowIndex;
 
-            
-            document.getElementById('pvm').value = this.cells[1].innerHTML;
-            document.getElementById('valikko').value = this.cells[2].innerHTML;
-            document.getElementById('harjoitus').value = this.cells[3].innerHTML;
-            document.getElementById('kesto').value = this.cells[4].innerHTML;
-            document.getElementById('fiilis').value = this.cells[5].innerHTML;
+            //set the values from row to form
+            document.getElementById('pvm').value = this.cells[0].innerHTML;
+            document.getElementById('valikko').value = this.cells[1].innerHTML;
+            document.getElementById('harjoitus').value = this.cells[2].innerHTML;
+            document.getElementById('kesto').value = this.cells[3].innerHTML;
+            document.getElementById('fiilis').value = this.cells[4].innerHTML;
         };
     }
 }
@@ -233,8 +246,9 @@ function selectRow() {
 
 //Update exercise information
 function updateData(e){
-    e.preventDefault();
+    e.preventDefault(); //preventing default-actions
 
+    //Variables
     var pvm = document.getElementById('pvm').value;
     var category = document.getElementById('valikko').value;
     var exercise = document.getElementById('harjoitus').value;
@@ -244,21 +258,23 @@ function updateData(e){
     var place = document.getElementById("harjoitusTaulu");
     var tableRows = place.getElementsByTagName('tr');
     
-    //Get the values of the selected rows
+    //Goes through the rows to find and update selected row
     for (var i = 1; i < tableRows.length; i++) {
         var cells = tableRows[i].getElementsByTagName('td');
    
+        //when selected row is found, the values are updated
         if (i === rIndex) {
-            cells[1].innerHTML = pvm;
-            cells[2].innerHTML = category;
-            cells[3].innerHTML = exercise;
-            cells[4].innerHTML = kesto;
-            cells[5].innerHTML = fiilis;
+            cells[0].innerHTML = pvm;
+            cells[1].innerHTML = category;
+            cells[2].innerHTML = exercise;
+            cells[3].innerHTML = kesto;
+            cells[4].innerHTML = fiilis;
     
-            break; 
+            break; //breaks the loop after the selected row had been found and upadated
         }
     }
     
+    //The updated values are saved to local storage 
     var harjoitusData = JSON.parse(localStorage.getItem("harjoitukset")) || [];
     harjoitusData[rIndex - 1] = {
         pvm: pvm,
@@ -268,6 +284,8 @@ function updateData(e){
         fiilis: fiilis
     };
     localStorage.setItem("harjoitukset", JSON.stringify(harjoitusData));
+
+    informationSummary();
 }
 
 
@@ -278,30 +296,95 @@ var table = document.getElementById("harjoitusTaulu");
 
 //Delete exercise-row
 function deleteData(e) {
-    e.preventDefault();
+    e.preventDefault(); 
 
     var place = document.getElementById("harjoitusTaulu");
     var tableRows = place.getElementsByTagName('tr');
 
+    //delete selected row
     tableRows[rIndex].remove();
 
+    //get the data from local storage, remove data and update 
     var harjoitusData = JSON.parse(localStorage.getItem("harjoitukset")) || [];
-    harjoitusData.splice(rIndex - 1, 1); // Remove the item from the array
+    harjoitusData.splice(rIndex - 1, 1); 
     localStorage.setItem("harjoitukset", JSON.stringify(harjoitusData));
 
 
-    // clear input text
+    // clear input text from form
     document.getElementById('pvm').value = "";
     document.getElementById('valikko').value = "";
     document.getElementById('harjoitus').value = "";
     document.getElementById('kesto').value = "";
     document.getElementById('fiilis').value = "";
 
+    informationSummary();
+
 }
 
 //Create dynamic evetnt to deleteHarjoitus
 deleteHarjoitus.addEventListener('click', deleteData);
 
+
+
+//////////////////////SUMMARY ABOUT EXERCISES///////////////
+
+function informationSummary() {
+
+    //get information from the table
+    var place = document.getElementById("harjoitusTaulu");
+
+    //how many exercises
+    var tableRows = place.getElementsByTagName('tr');
+    var maara = tableRows.length;
+
+    //duration of all exercises
+    var kestoYhteensa = 0;
+    for (var i = 1; i < tableRows.length; i++) {
+        var cells = tableRows[i].getElementsByTagName('td');
+        var kestoMerkki = cells[3].innerHTML.replace(/<[^>]+>/g, ''); //cells[3] value is <td>1</td>, need to remove html-tags
+        kestoNro = parseFloat(kestoMerkki); //need to change string to numbers
+        kestoYhteensa += kestoNro;
+    }
+
+
+    //average duration of exercise
+    var kestoKa = (kestoYhteensa / maara).toFixed(2);
+
+    //exercise count by categories
+    //obejct to save exercise by category
+    var maaraKategorioittain = {
+        peruskunto: 0,
+        cardio: 0,
+        strength: 0,
+        kehohuolto: 0,
+        muu: 0
+    }
+
+    //Go through all rows one by one
+    for (var i = 1; i < tableRows.length; i++) {
+        var cells = tableRows[i].getElementsByTagName('td');
+        var category = cells[1].innerHTML; 
+    
+        //Add +1 to correct category in maaraKategorioittain
+        maaraKategorioittain[category]++;
+    }
+
+    var tulostus = '<br><br><u>Harjoitukset kategorioittain: </u><br>';
+    for(var category in maaraKategorioittain){
+        tulostus += category + ": " + maaraKategorioittain[category] + '<br>';
+    }
+
+    //place where to load the information
+    var paikka = document.getElementById("tiedot");
+
+    //Loading to the yhteenveto
+    paikka.innerHTML = 
+    '<u>Harjoitukset yhteensä:</u> ' + maara + 
+    '<br><br><u>Harjoitusten kesto yhteensä: </u>' + kestoYhteensa +
+    '<br><br><u>Harjoitusten kesto keskimäärin: </u>' + kestoKa +
+    tulostus;
+
+}
 
 
 
@@ -316,7 +399,7 @@ const rauha = document.getElementById('rauha');
 const iloinen = document.getElementById('iloinen');
 const voima = document.getElementById('voima');
 
-//Defaul theme
+//Default theme
 uinti.checked = true;
 
 //Create dynamic events to theme choices
@@ -335,6 +418,7 @@ var kuvaJoukko = {
     "voima": "voima.png"
     };
 
+    //function so change picture
 function kuvanVaihto(kuvaJoukko) {
     var kuva = document.getElementById("teemaKuva");
     kuva.src = kuvaJoukko;
@@ -348,6 +432,7 @@ function changeStyle() {
     var navigator = document.querySelector('nav');
     
 
+    //changes according to theme (colors, pictures)
     if (uinti.checked) {
         document.body.style.backgroundColor =  'rgba(0, 255, 255, 0.226)';
         kuvanVaihto(kuvaJoukko["uinti"]);
