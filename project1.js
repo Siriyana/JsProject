@@ -337,7 +337,7 @@ function informationSummary() {
 
     //how many exercises
     var tableRows = place.getElementsByTagName('tr');
-    var maara = tableRows.length;
+    var maara = tableRows.length - 1;
 
     //duration of all exercises
     var kestoYhteensa = 0;
