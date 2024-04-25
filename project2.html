@@ -3,11 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Leffapäivä</title>
+    <link rel="stylesheet" href="projekti2.css">
 </head>
 <body>
+
+    <nav>
+        <div>
+            <figure id="logo"><img src="VKlogo.png" alt="logo, white cat and letter VK"></figure>
+        </div>
+        <ul class="navigointi">
+            <li><a class="navlink" href="index.html">Etusivu</a> </li>
+            <li><a class="navlink" href="project1.html">Projekti 1: Liikuntasovellus</a> </li>
+            <li><a class="navlink" href="peliprojekti.html">Peli-projekti?</a> </li>
+        </ul>
+    </nav>
+
     <header>
-        <h1>Projekti 2</h1>
+        <h1>Lähtevät junat</h1>
     </header>
+
+
+    <main>
+
+        <article>
+            <h2>Tervetuloa juna-asemalle!</h2>
+            <figure><img src="VR_Paarautatieasema_2_Kuvaaja_Pekka_Keskinen.jpg"></figure>
+        </article>
+
+    <article>
+
+        <h2>Haku</h2>
+        <p>Voit hakea tietyltä asemalta tietyn kellon ajan jälkeen tänään lähteviä junia.</p>
+        <input type="text" id="aseman_haku"><input type="time" id="kellonaika">
+        <button id="asema">Hae junatiedot</button>
+    </article>
+
+
+    <article>
+        <h2>Paikallinen sää</h2>
+        <p>Tässä vielä tiedot paikallisesta säästä, jotta osaat varautua oikeanlaisella pukeutumisella.</p>
+        <div id="weatherData"></div>
+    </article>
+
+    <article>
+        <h4>Onnea matkaan!</h4>
+        <h4>Lycka till!</h4>
+        <h4>Happy journey!</h4>
+    </article>
+
+
+
+
+
+    </main>
+
+
+    <footer>
+        <ul>
+            <li>Tekijätiedot: <p>Veera K</p></li>
+            <li>Yhteystiedot: <p>N/A</p></li>
+            <li>Kuvat: <p>VR:n kuvapankki</p></li>
+        </ul>
+    </footer>
+
+
 </body>
+<script src="projekti2.js"></script>
 </html>
