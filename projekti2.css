@@ -80,6 +80,10 @@ article {
     align-items: center;
 }
 
+.junaTiedot {
+    display: none;
+}
+
 
 footer{
     display: flex;

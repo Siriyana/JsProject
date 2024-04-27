@@ -34,9 +34,15 @@
     <article>
 
         <h2>Haku</h2>
-        <p>Voit hakea tietyltä asemalta tietyn kellon ajan jälkeen tänään lähteviä junia.</p>
-        <input type="text" id="aseman_haku"><input type="time" id="kellonaika">
+        <p>Asemahaku tuo tiedot seuraavan puolen tunnin aikana asemalta lähtevät junat</p>
+        <input type="text" id="aseman_haku">
         <button id="asema">Hae junatiedot</button>
+    </article>
+
+    <article id="junaTiedot">
+        <h2 id="otsikko"></h2>
+        <div id="junaTaulu"></div>
+        <div id="tiedotteet"></div>
     </article>
 
 

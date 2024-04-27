@@ -7,19 +7,8 @@ hae_paikka_btn.addEventListener('click', haePaikkaJSON);
 function haePaikkaJSON(e) {
     e.preventDefault();
     var asema = document.getElementById('aseman_haku').value;
-    var kellonaika = document.getElementById('kellonaika').value;
-    var kello = kellonaika + ":00";
 
-    //luodaan hakua varten aika, jottei api-osoitteeseen tarvitse kovakoodata, sillä osoitteen voimassaolo muuttuu päivän mukaan
-    var currentDate = new Date();
-    var vuosi = currentDate.getFullYear();
-    var kuukausi = String(currentDate.getMonth() + 1).padStart(2, '0');
-    var paiva = String(currentDate.getDate()).padStart(2, '0');
-    var aika = vuosi + "-" + kuukausi + "-" + paiva + "T" + kello + "Z/" + vuosi + "-" + kuukausi + "-" + paiva + "T" + kello + "Z"
     var haku = new XMLHttpRequest();
-
-    haku.open("GET", "https://rata.digitraffic.fi/infra-api/0.7/13391/rautatieliikennepaikat.json?time=" + aika + "&typeNames=liikennepaikka", true);
-    haku.send();
 
     haku.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
@@ -28,32 +17,91 @@ function haePaikkaJSON(e) {
 
             var found = false;
 
-            for (var tunniste in jsData) {
-                var asemaTiedot = jsData[tunniste];
-                for (var i = 0; i < asemaTiedot.length; i++){
-                    if (asemaTiedot[i].nimi.toLowerCase() === asema.toLowerCase()) {  //muutetaan niin hakusana kuin JSONsta löytävä aseman nimi pieniksi kirjaimiksi ja poistetaan JSONssa olevasta nimestä " " -jotka vaikuttivat haun onnistumiseen
-                        found = true;
-                        var lyhenne = asemaTiedot[i].lyhenne;
+            for (var i = 0; i < jsData.length; i++){
+                var asemaTiedot = jsData[i];
 
-                        haeAsemanJunat(lyhenne);
-                        findLocation(asema);
-                        break;
-                    }
+                var stationName = asemaTiedot.stationName.toLowerCase();
+                if (stationName.includes(asema.toLowerCase())) {  
+                    found = true;
+                    var lyhenne = asemaTiedot.stationShortCode;
+    
+                    haeAsemanJunat(lyhenne);
+                    findLocation(asema);
+    
+                    var junaTiedot = document.getElementById('junaTiedot');
+                    junaTiedot.style.display = 'block';
+                    var otsikko = document.getElementById('otsikko');
+                    otsikko.innerHTML = '<h3> ' + asema + ': lähtevät junat</h3>';
+                        
+                    break;
                 }
+
             }
+            
             if (!found) {
                 alert("Hakemaasi asemaa ei löytynyt");
 
             }
 
         }
-    }
+    };
+    haku.open("GET", "https://rata.digitraffic.fi/api/v1/metadata/stations", true);
+    haku.send();
 }
 
 
-function haeAsemanJunat(paikka) {
+function haeAsemanJunat(lyhenne) {
+    console.log(lyhenne);
+    var junaHaku = new XMLHttpRequest();
+    var junaURL = "https://rata.digitraffic.fi/api/v1//live-trains/station/" + lyhenne + "?minutes_before_departure=30&minutes_after_departure=0&minutes_before_arrival=0&minutes_after_arrival=0";
+    junaHaku.open("GET", junaURL, true);
+    junaHaku.send();
 
-    url = "/live-trains/station/" + paikka + "minutes_before_departure=120&minutes_after_departure=15&minutes_before_arrival=15&minutes_after_arrival=15";
+    junaHaku.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var junaJson = junaHaku.responseText;
+            var junaData = JSON.parse(junaJson);
+            console.log(junaData);
+
+            var taulukko = "<table border='1'><tr><th>Lähtöaika</th><th>Juna</th><th>Junan päämäärä</th></tr>";
+    
+
+            
+            for (var i = 0; i < junaData.length; i++){
+                var junaTiedot = junaData[i];
+                var trainType = junaTiedot.trainType;
+                console.log(trainType);
+                var trainNumber = junaTiedot.trainNumber;
+                var trainCategory = junaTiedot.trainCategory;
+                if (trainCategory === "Commuter") {
+                    trainCategory = "Lähijuna";
+                } else if (trainCategory === "Long-distance"){
+                    trainCategory = "Kaukojuna";
+                } else if (trainCategory === "Shunting"){
+                    trainCategory = "Siirrossa";
+                }
+                var scheduledTime = null;
+                var viimeinenAsema = null;
+
+                for (var j = 0; j < junaTiedot.timeTableRows.length; j++) {
+                    var asema = junaTiedot.timeTableRows[j];
+                    if (asema.stationShortCode === "HKI"){
+                        //Apista tuleva aika on UTC-aikavyöhykkeen mukainen ja halusin tulostuksen suomen aikaa ja vain tunnit ja minuutit
+                        var scheduledTimeUTC = asema.scheduledTime;
+                        var scheduledTimeLocal = new Date(scheduledTimeUTC);
+                        scheduledTime = ("0" + scheduledTimeLocal.getHours()).slice(-2) + ":" + ("0" + scheduledTimeLocal.getMinutes()).slice(-2);
+
+                    }
+                    viimeinenAsema = asema.stationShortCode;
+                }
+                    
+                taulukko += "<tr><td>"  + scheduledTime + "</td><td>" +
+                trainCategory + "<br>" + trainType + " " + trainNumber + "</td><td>" + viimeinenAsema + "</td></tr>";
+            }
+            taulukko += "</table>";
+            document.getElementById("junaTaulu").innerHTML = taulukko;   
+        }
+    }
 }
 
 
@@ -111,7 +159,6 @@ function findLocation(asema) {
         if (this.readyState == 4 && this.status == 200) {
             var locationJson = getLocation.responseText;
             var locationData = JSON.parse(locationJson);
-            console.log(locationData);
             if (locationData.length > 0){
            
                 var sijainti = {
