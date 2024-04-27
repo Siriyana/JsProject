@@ -18,8 +18,7 @@ nav{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-image: url("air.png");
-    background-size: cover;
+    background-color: black;
 }
 
 .navigointi{
@@ -63,6 +62,8 @@ header {
     text-align: center;
 }
 
+
+
 h1 {
     color: white;
     text-shadow: 2px 1px 2px black;
@@ -85,9 +86,46 @@ article {
 }
 
 
+#bimg {
+    background-image: url(VR_Paarautatieasema_2_Kuvaaja_Pekka_Keskinen.jpg);
+    min-height: 750px;
+}
+
+#bimg2 {
+    background-image: url(VR_Sm4_lahijuna_kuva_Janne_Mikkila.jpg);
+    height: 600px;
+    width: 100%;
+    opacity: 0.8;
+}
+
+#bimg, #bimg2 {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.86);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.otsikkoTeksti {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+}
+
+.teksti {
+    padding: 15px;
+    background-color: black;
+    color: white;
+    font-size: 25px;
+}
+
+
 footer{
     display: flex;
-    background: linear-gradient(rgb(48, 104, 129), rgb(82, 142, 159));
     color: white;
     justify-content: center;
 }
