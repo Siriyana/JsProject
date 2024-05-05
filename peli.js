@@ -18,11 +18,7 @@ const staggerFrames = 5;
 let gameSpeed = 1;
 
 
-let timeToNextEnemy = 1000;
-let enemyInterval = 1000;
-let lastTime = 0;
-let score = 0;
-ctx.font = '50px Impact';
+
 
 //SHADOWDOG IMAGE AND ANIMATION STATES
 let playerState = 'run';    //määritellään hahmon tila, eli hahmo juoksee
@@ -107,9 +103,15 @@ const backgroundLayer5 = new Image();
 backgroundLayer5.src = 'peli/layer-5.png';
 
 
+//VIHOLLISET
+
+
 //ALustetaan vihollisten tietoja, vihollisten määrä ja lista, johon viholliset lisätään
 let enemiesArray = [];
-
+//vihollisten ilmestymiseen liittyviä
+let timeToNextEnemy = 1000;
+let enemyInterval = 1000;
+let lastTime = 0;
 
 //luodaan neljä erilaista vihollisluokkaa, joilla on eri kuva ja erilaiset liikeradat
 class Enemy1 {
@@ -284,6 +286,20 @@ class Enemy4 {
 };
 
 
+//PISTETAULU
+
+let score = 0;
+ctx.font = '50px Impact';
+
+//Pistetaulu
+function drawScore(){
+    ctx.fillStyle = 'black';
+    ctx.fillText('Score: ' + score, 50, 75); //scoreboard määritellään tiettyyn sijaintiin
+    ctx.fillStyle = 'white'; //saadaan piirrettyä hieno varjostus, kun eka mustalla ja sitten valkoisella vähän eri kohtaan
+    ctx.fillText('Score: ' + score, 55, 80);
+}
+
+
 
 // COLLISION EXPLOSIONS
 
@@ -322,15 +338,6 @@ class Explosion {
 }
 
 
-
-
-//Pistetaulu
-function drawScore(){
-    ctx.fillStyle = 'black';
-    ctx.fillText('Score: ' + score, 50, 75); //scoreboard määritellään tiettyyn sijaintiin
-    ctx.fillStyle = 'white'; //saadaan piirrettyä hieno varjostus, kun eka mustalla ja sitten valkoisella vähän eri kohtaan
-    ctx.fillText('Score: ' + score, 55, 80);
-}
 
 //Räjähdys-tapahtuma, kun klikataan vihollista
 window.addEventListener('click', function(e){
@@ -403,7 +410,7 @@ window.addEventListener('load', function(){
         let deltatime = timestamp - lastTime;
         lastTime = timestamp;
         timeToNextEnemy += deltatime;
-        if (timeToNextEnemy > enemyInterval){
+        if (timeToNextEnemy > enemyInterval && enemiesArray.length < 25) {
                 // Valitse satunnainen vihollistyyppi
                 const enemyType = Math.floor(Math.random() * 4) + 1;
             
